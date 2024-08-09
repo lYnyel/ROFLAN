@@ -13,6 +13,7 @@ interface AppContextProps {
   timeLeft: number;
   setTimeLeft: (time: number) => void;
   isTimeUp: boolean;
+  setIsTimeUp: (time: boolean) => void;
 }
 
 export const AppContext = createContext<AppContextProps>({
@@ -24,9 +25,10 @@ export const AppContext = createContext<AppContextProps>({
   startTime: null,
   setStartTime: () => {},
   reset: () => {},
-  timeLeft: 60,
+  timeLeft: 15,
   setTimeLeft: () => {},
   isTimeUp: false,
+  setIsTimeUp: () => {},
 });
 
 interface AppProviderProps {
@@ -38,7 +40,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [input, setInput] = useState("");
   const [errors, setErrors] = useState(0);
   const [startTime, setStartTime] = useState<number | null>(null);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(15);
   const [isTimeUp, setIsTimeUp] = useState(false);
 
   const loadRandomText = async () => {
@@ -52,7 +54,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     setErrors(0);
     setStartTime(null);
     setIsTimeUp(false);
-    setTimeLeft(60); // Reset to default 60 seconds or any other chosen default value
+    setTimeLeft(15); 
   };
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   useEffect(() => {
     if (startTime && !isTimeUp) {
       const interval = setInterval(() => {
-        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        // const elapsed = Math.floor((Date.now() - startTime) / 1000);
         setTimeLeft((prevTimeLeft) => {
           if (prevTimeLeft <= 1) {
             clearInterval(interval);
@@ -78,7 +80,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   }, [startTime, isTimeUp]);
 
   return (
-    <AppContext.Provider value={{ text, input, setInput, errors, setErrors, startTime, setStartTime, reset, timeLeft, setTimeLeft, isTimeUp }}>
+    <AppContext.Provider value={{ text, input, setInput, errors, setErrors, startTime, setStartTime, reset, timeLeft, setTimeLeft, isTimeUp, setIsTimeUp }}>
       {children}
     </AppContext.Provider>
   );

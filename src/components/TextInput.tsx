@@ -14,9 +14,17 @@ const InputArea = styled.textarea`
 `;
 
 const TextInput: React.FC = () => {
-  const { input, setInput, text } = useContext(AppContext);
+  const { input, setInput, text, setIsTimeUp, startTime, setStartTime} = useContext(AppContext);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if(startTime === null)
+    {
+      setStartTime(Date.now());
+    }
+    if(input.length == text.length -1)
+    {
+      setIsTimeUp(true)
+    }
     setInput(event.target.value);
   };
 

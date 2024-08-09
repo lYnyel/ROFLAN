@@ -42,14 +42,10 @@ const TimeSelector = styled.select`
 `;
 
 const AppContent: React.FC = () => {
-  const { reset, setStartTime, timeLeft, setTimeLeft, isTimeUp } = useContext(AppContext);
+  const { reset, timeLeft, setTimeLeft, isTimeUp } = useContext(AppContext);
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTimeLeft(parseInt(e.target.value));
-  };
-
-  const startTraining = () => {
-    setStartTime(Date.now());
   };
 
   return (
@@ -60,13 +56,12 @@ const AppContent: React.FC = () => {
       <div className='Buttons'>
       <Timer>Time left: {timeLeft}s</Timer>
       <TimeSelector onChange={handleTimeChange}>
+        <option value={15}>15 seconds</option>
         <option value={30}>30 seconds</option>
-        <option value={60}>1 minute</option>
-        <option value={120}>2 minutes</option>
+        <option value={60}>60 seconds</option>
       </TimeSelector>
       <ButtonContainer>
       <Button onClick={reset}>Restart</Button>
-      {!isTimeUp && <Button onClick={startTraining}>Start Training</Button>}
       {isTimeUp && <Results />}
       </ButtonContainer>
       </div>

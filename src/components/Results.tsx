@@ -19,7 +19,7 @@ const Results: React.FC = () => {
   useEffect(() => {
     if (startTime !== null) {
       const endTime = Date.now();
-      const duration = (endTime - startTime) / 1000 / 60; // minutes
+      const duration = (endTime - startTime) / 1000 / 60;
       const wpm = calculateWPM(input, duration);
       setWpm(wpm);
     }
