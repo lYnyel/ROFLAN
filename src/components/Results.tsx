@@ -13,7 +13,7 @@ const ResultsContainer = styled.div`
 `;
 
 const Results: React.FC = () => {
-  const { input, text, errors, startTime } = useContext(AppContext);
+  const { input, text, errors, startTime, setErrors } = useContext(AppContext);
   const [wpm, setWpm] = useState(0);
 
   useEffect(() => {
@@ -24,6 +24,16 @@ const Results: React.FC = () => {
       setWpm(wpm);
     }
   }, [input, text, startTime]);
+
+  useEffect(() => {
+    let errorCount = 0;
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] !== text[i]) {
+        errorCount++;
+      }
+    }
+    setErrors(errorCount);
+  }, [input, text, setErrors]);
 
   return (
     <ResultsContainer>

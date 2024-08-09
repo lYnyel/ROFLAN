@@ -16,7 +16,6 @@ const Container = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
   gap: 10px; /* Расстояние между кнопками */
   margin-top: 20px;
 `;
